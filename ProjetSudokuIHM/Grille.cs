@@ -18,7 +18,6 @@ namespace ProjetSudokuIHM
 
         public Grille(string nom, string date, string format, char[,] tab)
         {
-            // TODO: Complete member initialization
             this.nom = nom;
             this.date = date;
             this.format = format;
@@ -86,11 +85,8 @@ namespace ProjetSudokuIHM
                 modL = lig % tailleCarré;
 
                 for (int i = divL * tailleCarré; i < divL * tailleCarré + tailleCarré; i++)
-                {
                     if (i != col)
-                    {
                         for (int j = divC * tailleCarré; j < divC * tailleCarré + tailleCarré; j++)
-                        {
                             if (j != col)
                             {
                                 if (getFormat.IndexOf(tab[i, j]) != -1 && !tabVérifNombre[format.IndexOf(tab[i, j])])
@@ -106,50 +102,27 @@ namespace ProjetSudokuIHM
                                 if (!CarréEstValide)
                                     break;
                             }
-
-
-                        }
-                    }
-
                 }
-
-            }
         }
 
         private void RechercheParColonne(char c, int lig, int col)
         {
             if (nbHypothese>1)
-            {
                 for (int i = 0; i < getFormat.Length; i++)
-                {
                     if (i != lig)
-                    {
                         if (getFormat.IndexOf(tab[i, col]) != -1 && !tabVérifNombre[getFormat.IndexOf(tab[i, col])])
-                        {
                             setVrai(getFormat.IndexOf(tab[i, col]));
 
-                        }
-                    }
-                                    } 
-            }
-            
         }
-
         private void RechercheParLigne(char c, int lig, int col)
         {
             if (nbHypothese>1)
-            {
                 for (int i = 0; i < getFormat.Length; i++)
-                {
-                    if (i != col)
-                    {
-                        if (getFormat.IndexOf(tab[lig, i]) != -1 && !tabVérifNombre[getFormat.IndexOf(tab[lig, i])])
-                        {
-                            setVrai(getFormat.IndexOf(tab[lig, i]));
-                        }
-                    }
-                 }
-            }
+                        if (i != col)
+                            if (getFormat.IndexOf(tab[lig, i]) != -1 && !tabVérifNombre[getFormat.IndexOf(tab[lig, i])])
+                               setVrai(getFormat.IndexOf(tab[lig, i]));
+                 
+            
             
         }
         public void setVrai(int indice)
@@ -167,8 +140,6 @@ namespace ProjetSudokuIHM
         public void InitialiserTabVérifNombre()
         {
             tabVérifNombre = new bool[getFormat.Length];
-
-           // int t = Grilles[cBChoixGrille.SelectedIndex].getFormat.Length;
             for (int i = 0; i < getFormat.Length; i++)
                 tabVérifNombre[i] = false;
         }

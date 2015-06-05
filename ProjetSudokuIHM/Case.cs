@@ -7,7 +7,7 @@ namespace ProjetSudokuIHM
 {
     class Case
     {
-       // private string valeur;
+     
         private int nbHypothese;
         private   char valeur;
         private char[] hypotheses;
@@ -17,7 +17,7 @@ namespace ProjetSudokuIHM
         
         public    Case(char v,int nbhypoth, char[] hypotheses)
     {
-        // TODO: Complete member initialization
+       
                 this.valeur = v;
                 this.nbHypothese = nbhypoth;
                 this.hypotheses = hypotheses;

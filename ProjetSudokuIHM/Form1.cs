@@ -104,7 +104,7 @@ namespace ProjetSudokuIHM
                         {
                             tab[i, j] = c;
                             j++;
-                            // Console.WriteLine(c);
+                           
                         }
 
                     }
@@ -135,28 +135,9 @@ namespace ProjetSudokuIHM
             for (int i = 0; i < taille; i++)
             {
                 CréerDataGrille(i,taille);
-
                 for (int j = 0; j < taille; j++)
-
-                {
-                    if (grille.getTabCase[i, j].Valeur != '.')
-                    {
                         this.dGVGrille.Rows[i].Cells[j].Value = grille.getTabCase[i, j].Valeur;
-                        
-
-                    }
-                    else
-                    {
-                        this.dGVGrille.Rows[i].Cells[j].Value = grille.getTabCase[i, j].Valeur;
-                        
-                      //  for (int k = 0; k < grille.getTabCase[i, j].NbHypothese; k++)
-                       // {
-                           
-                       // }
-                                        }
-                       
-                
-                }
+                    
             }
 
         }
@@ -168,7 +149,7 @@ namespace ProjetSudokuIHM
             DataGridViewRow row = this.dGVGrille.RowTemplate;
             dGVGrille.Rows[i].Height = (dGVGrille.Height)/taille;
             using (Font font = new Font(
-         dGVGrille.DefaultCellStyle.Font.FontFamily, 10, FontStyle.Bold))
+            dGVGrille.DefaultCellStyle.Font.FontFamily, 10, FontStyle.Bold))
             {
                 dGVGrille.Columns[i].DefaultCellStyle.Font = font;
             }    
@@ -189,18 +170,9 @@ namespace ProjetSudokuIHM
                 {
                     if (gr.getTabCase[i, j].NbHypothese == 1 && gr.getTabCase[i, j].Valeur.Equals('.'))
                     {
-                       // MessageBox.Show(gr.getTabCase[i, j].Valeur + " : " + i + " - " + j);
-                       // gr.getTab[i, j] = gr.getTabCase[i, j].Valeur;
                         gr.ChangerLaValeurDuTab(i,j,gr.getTabCase[i, j].Hypotheses[0]);
                         gr.GrilleMiseàjour();
                         AfficherGrilleSélectionnée(gr);
-                        /*
-                         * dGVGrille.Rows[i].Cells[j].Value = gr.getTabCase[i, j].Hypotheses[0];
-                        gr.getTabCase[i, j].Valeur = gr.getTabCase[i, j].Hypotheses[0];
-
-                         */
-                       // MessageBox.Show(gr.getTabCase[i, j].Valeur + " : " + i + " - " + j);
-
                         goto Exit;
                     }
                 }
