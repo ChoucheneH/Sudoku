@@ -43,24 +43,92 @@ namespace ProjetSudokuIHM
 
         }
 
+
+        
         private bool VérifierFichier(string path)
         {
+            bool verifieF = true;
             try
             {
-                string[] lines = File.ReadAllLines(@"" + path);
-                if (lines.Length == 0)
+                if (EstVide(path))
                 {
-                    MessageBox.Show("le fichier " + path + " donnée est vide", "Avertissement", MessageBoxButtons.OK);
-                    return false;
+                    MessageBox.Show("le fichier " + path + " est vide", "Avertissement", MessageBoxButtons.OK);
+                    verifieF = false;
+                    goto Exit;
                 }
-                return true;
+                if (EstMalOrganisé(path))
+                {
+                    MessageBox.Show("le fichier " + path + " est mal organisé", "Avertissement", MessageBoxButtons.OK);
+                    verifieF = false;
+                    goto Exit;
+                }
+
+                Exit:;
             }
             catch (Exception)
             {
                 MessageBox.Show("le fichier " + path + " donnée est vide", "Attention", MessageBoxButtons.OK);
-                return false;
+                verifieF=false;
+            }
+            return verifieF;
+        }
+
+        private bool EstVide(string path)
+        {
+            bool Estvide = false;
+            try
+            {
+                string[] lines = File.ReadAllLines(@"" + path);
+                if (lines.Length == 0)
+                    Estvide = true;
+            }
+            catch (FileNotFoundException e)
+            {
+                MessageBox.Show(e.Message);
             }
 
+            return Estvide;
+        }
+        private bool EstMalOrganisé(string path)
+        {
+            bool estmalorganisé = false;
+            using (StreamReader reader = new StreamReader(oFDChoixFile.FileName))
+            {
+                int nb = 0 , nbgrille=0;
+                string str,strType="";
+            loop: while ( (str = reader.ReadLine())!=null)
+                {
+                
+                    if (str.StartsWith("-") || nb<4 )
+                    {
+                        nb++;
+                        strType = str;
+                        goto loop;
+                       
+                    }
+                    
+                    if (str.Length == strType.Length && !str.StartsWith("-"))
+                        {
+                            nbgrille++;
+                            if (nbgrille==strType.Length)
+                            {
+                                nbgrille = 0;
+                                nb = 0;
+                            }
+                            goto loop;
+                        }
+                    
+                    else
+                        {
+                            estmalorganisé = true;
+                            goto fin;
+                        }
+                    
+                    }
+                fin :;
+            }
+
+            return estmalorganisé;
         }
 
         private void oFDChoixFile_FileOk(object sender, CancelEventArgs e)
